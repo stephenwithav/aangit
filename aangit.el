@@ -15,6 +15,14 @@
   :choices '("css" "scss" "sass" "less")
   )
 
+(transient-define-argument aangit-menu--new-component-style ()
+  :description "Style"
+  :class transient-option
+  :key "-y"
+  :argument "--style="
+  :choices '("css" "scss" "sass" "less" "none")
+  )
+
 (transient-define-prefix aangit-menu--new-project ()
   :value '("--standalone" "--routing" "--style=css")
   ["Switches"
@@ -32,26 +40,52 @@
   (interactive)
   (message "not yet implemented"))
 
+(transient-define-suffix aangit-menu--ng-generate-component-command (&optional args)
+  :description "ng generate component"
+  (interactive (list (transient-args transient-current-command)))
+  (let ((component (read-string "component name: ")))
+   (if (eq component "")
+      (message "missing component name")
+    (shell-command (format "ng generate component %s --defaults %s" component (string-join args " "))))
+   ))
+
+(transient-define-prefix aangit-menu--generate-component-submenu ()
+  ["generate component"
+   ("-s" "Standalone" "--standalone" :class transient-switch)
+   ("-i" "Inline Style" "--inline-style" :class transient-switch)
+   ("-t" "Inline Template" "--inline-template" :class transient-switch)
+   (aangit-menu--new-component-style)
+   ]
+  ["Commands"
+   ("n" "new" aangit-menu--ng-generate-component-command)]
+  )
+
+(transient-define-prefix aangit-menu--generate-interface-submenu ()
+  ["generate interface"])
+
+(transient-define-prefix aangit-menu--generate-service-submenu ()
+  ["generate service"])
+
 (transient-define-prefix aangit-menu--generate-submenu ()
   :value '("--defaults")
   ["Generate what?"
-   ("a" "Application shell" aangit-menu--unimplemented)
-   ("A" "application in projects" aangit-menu--unimplemented)
-   ("C" "Class" aangit-menu--unimplemented)
-   ("c" "Component" aangit-menu--unimplemented)
-   ("o" "Configuration file" aangit-menu--unimplemented)
-   ("d" "Directive" aangit-menu--unimplemented)
-   ("e" "Enums" aangit-menu--unimplemented)
-   ("g" "Guard" aangit-menu--unimplemented)
-   ("I" "Interceptor" aangit-menu--unimplemented)
-   ("i" "Interface" aangit-menu--unimplemented)
-   ("l" "Library" aangit-menu--unimplemented)
-   ("m" "Module" aangit-menu--unimplemented)
-   ("p" "Pipe" aangit-menu--unimplemented)
-   ("r" "Resolver" aangit-menu--unimplemented)
-   ("s" "Service" aangit-menu--unimplemented)
-   ("S" "Service Worker" aangit-menu--unimplemented)
-   ("w" "Web Worker" aangit-menu--unimplemented)
+   ;; ("a" "Application shell" aangit-menu--unimplemented)
+   ;; ("A" "application in projects" aangit-menu--unimplemented)
+   ;; ("C" "Class" aangit-menu--unimplemented)
+   ("c" "Component" aangit-menu--generate-component-submenu)
+   ;; ("o" "Configuration file" aangit-menu--unimplemented)
+   ;; ("d" "Directive" aangit-menu--unimplemented)
+   ;; ("e" "Enums" aangit-menu--unimplemented)
+   ;; ("g" "Guard" aangit-menu--unimplemented)
+   ;; ("I" "Interceptor" aangit-menu--unimplemented)
+   ;; ("i" "Interface" aangit-menu--unimplemented)
+   ;; ("l" "Library" aangit-menu--unimplemented)
+   ;; ("m" "Module" aangit-menu--unimplemented)
+   ;; ("p" "Pipe" aangit-menu--unimplemented)
+   ;; ("r" "Resolver" aangit-menu--unimplemented)
+   ;; ("s" "Service" aangit-menu--unimplemented)
+   ;; ("S" "Service Worker" aangit-menu--unimplemented)
+   ;; ("w" "Web Worker" aangit-menu--unimplemented)
    ]
   )
 
