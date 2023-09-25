@@ -105,3 +105,6 @@
     ("n" "new" aangit-menu--new-project)
     ("g" "generate" aangit-menu--generate-submenu)
     ]])
+
+
+(provide 'aangit)
