@@ -2,10 +2,10 @@
   :description "ng new"
   (interactive (list (transient-args transient-current-command)))
   (let ((dir (car (last (string-split (car (dired-read-dir-and-switches "")) "/"))))
-        (args (string-join args " ")))
+        (cliargs (string-join args " ")))
     (if (eq dir "")
         (message "missing project name")
-      (shell-command (format "ng new %s %s" dir args)))))
+      (shell-command (format "ng new --defaults %s %s" dir cliargs)))))
 
 (transient-define-argument aangit-menu--new-project-style ()
   :description "Style"
@@ -16,16 +16,12 @@
   )
 
 (transient-define-prefix aangit-menu--new-project ()
-  :incompatible '(
-                  ("--defaults" "--standalone")
-                  ("--defaults" "--routing")
-                  ("--defaults" "--style")
-                  )
   :value '("--standalone" "--routing" "--style=css")
   ["Switches"
-   ("-d" "Defaults" "--defaults" :class transient-switch)
    ("-s" "Standalone" "--standalone" :class transient-switch)
    ("-r" "Routing" "--routing" :class transient-switch)
+   ("-i" "Inline Style" "--inline-style" :class transient-switch)
+   ("-t" "Inline Template" "--inline-template" :class transient-switch)
    (aangit-menu--new-project-style)
    ]
   ["Commands"
