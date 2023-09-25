@@ -60,8 +60,18 @@
    ("n" "new" aangit-menu--ng-generate-component-command)]
   )
 
+(transient-define-suffix aangit-menu--ng-generate-interface-command (&optional args)
+  :description "ng generate interface"
+  (interactive (list (transient-args transient-current-command)))
+  (let ((interface (read-string "interface name: ")))
+   (if (eq interface "")
+      (message "missing interface name")
+    (shell-command (format "ng generate interface %s" interface)))
+   ))
+
 (transient-define-prefix aangit-menu--generate-interface-submenu ()
-  ["generate interface"])
+  ["Interfaces"
+   ("n" "new" aangit-menu--ng-generate-interface-command)])
 
 (transient-define-prefix aangit-menu--generate-service-submenu ()
   ["generate service"])
@@ -78,7 +88,7 @@
    ;; ("e" "Enums" aangit-menu--unimplemented)
    ;; ("g" "Guard" aangit-menu--unimplemented)
    ;; ("I" "Interceptor" aangit-menu--unimplemented)
-   ;; ("i" "Interface" aangit-menu--unimplemented)
+   ("i" "Interface" aangit-menu--generate-interface-submenu)
    ;; ("l" "Library" aangit-menu--unimplemented)
    ;; ("m" "Module" aangit-menu--unimplemented)
    ;; ("p" "Pipe" aangit-menu--unimplemented)
