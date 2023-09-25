@@ -60,13 +60,13 @@
    ("n" "new" aangit-menu--ng-generate-component-command)]
   )
 
-(transient-define-suffix aangit-menu--ng-generate-interface-command (&optional args)
-  :description "ng generate interface"
+(transient-define-suffix aangit-menu--ng-generate-service-command (&optional args)
+  :description "ng generate service"
   (interactive (list (transient-args transient-current-command)))
-  (let ((interface (read-string "interface name: ")))
-   (if (eq interface "")
-      (message "missing interface name")
-    (shell-command (format "ng generate interface %s" interface)))
+  (let ((service (read-string "service name: ")))
+   (if (eq service "")
+      (message "missing service name")
+    (shell-command (format "ng generate service %s" service)))
    ))
 
 (transient-define-prefix aangit-menu--generate-interface-submenu ()
@@ -74,7 +74,8 @@
    ("n" "new" aangit-menu--ng-generate-interface-command)])
 
 (transient-define-prefix aangit-menu--generate-service-submenu ()
-  ["generate service"])
+  ["service"
+   ("n" "new" aangit-menu--ng-generate-service-command)])
 
 (transient-define-prefix aangit-menu--generate-submenu ()
   :value '("--defaults")
@@ -93,7 +94,7 @@
    ;; ("m" "Module" aangit-menu--unimplemented)
    ;; ("p" "Pipe" aangit-menu--unimplemented)
    ;; ("r" "Resolver" aangit-menu--unimplemented)
-   ;; ("s" "Service" aangit-menu--unimplemented)
+   ("s" "Service" aangit-menu--generate-service-submenu)
    ;; ("S" "Service Worker" aangit-menu--unimplemented)
    ;; ("w" "Web Worker" aangit-menu--unimplemented)
    ]
