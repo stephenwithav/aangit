@@ -5,7 +5,12 @@
         (cliargs (string-join args " ")))
     (if (eq dir "")
         (message "missing project name")
-      (shell-command (format "ng new --defaults %s %s" dir cliargs)))))
+      (progn
+        (shell-command (format "ng new --defaults %s %s" dir cliargs))
+        (dired dir)
+        (delete-other-windows)
+        (aangit-menu--generate-submenu))
+      )))
 
 (transient-define-argument aangit-menu--new-project-style ()
   :description "Style"
