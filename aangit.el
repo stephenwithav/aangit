@@ -124,6 +124,4 @@
 
 (provide 'aangit)
 
-(provide 'aangit)
-
 ;;; aangit.el ends here
