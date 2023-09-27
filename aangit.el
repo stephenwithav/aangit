@@ -20,7 +20,7 @@
   (interactive (list (transient-args transient-current-command)))
   (let ((dir (car (last (string-split (car (dired-read-dir-and-switches "")) "/"))))
         (cliargs (string-join args " ")))
-    (if (eq dir "")
+    (if (string-empty-p dir)
         (message "missing project name")
       (progn
         (shell-command (format "ng new --defaults %s %s" dir cliargs))
@@ -63,7 +63,7 @@
   :description "ng generate component"
   (interactive (list (transient-args transient-current-command)))
   (let ((component (read-string "component name: ")))
-   (if (eq component "")
+   (if (string-empty-p component)
       (message "missing component name")
     (shell-command (format "ng generate component %s --defaults %s" component (string-join args " "))))))
 
@@ -81,7 +81,7 @@
   :description "ng generate service"
   (interactive (list (transient-args transient-current-command)))
   (let ((service (read-string "service name: ")))
-   (if (eq service "")
+   (if (string-empty-p service)
       (message "missing service name")
     (shell-command (format "ng generate service %s" service)))))
 
