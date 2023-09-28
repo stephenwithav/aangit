@@ -3,7 +3,7 @@
 ;;; Commentary:
 ;; Author: Steven Edwards <steven@stephenwithav.io>
 ;; URL: https://github.com/stephenwithav/aangit
-;; Keywords: angular
+;; Keywords: angular tools
 ;; Version: 0.1
 ;; Package-Requires: ((Emacs "29.1") (transient "0.4"))
 ;;
