@@ -5,14 +5,15 @@
 ;; URL: https://github.com/stephenwithav/aangit
 ;; Keywords: angular
 ;; Version: 0.1
-;; Package-Requires: ((emacs "28.1") (transient "0.4"))
+;; Package-Requires: ((Emacs "29.1") (transient "0.4"))
 ;;
 ;; Switching back and forth between the cli (e.g., for ng generate commands) and
-;; emacs is annoying.  This package hopes to alleviate that.
+;; Emacs is annoying.  This package hopes to alleviate that.
 
 ;;; Code:
 
 (require 'transient)
+(require 'dired)
 
 (transient-define-suffix aangit-menu--ng-new (&optional args)
   "Quickly scaffolds new Angular app in cwd."
