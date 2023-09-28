@@ -87,7 +87,7 @@
       (message "missing service name")
     (shell-command (format "ng generate service %s" service)))))
 
-(transient-define-suffix aangit-menu--ng-interface-interface-command (&optional args)
+(transient-define-suffix aangit-menu--ng-generate-interface-command (&optional args)
   :description "ng generate interface"
   (interactive (list (transient-args transient-current-command)))
   (let ((interface (read-string "interface name: ")))
