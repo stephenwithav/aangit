@@ -87,6 +87,14 @@
       (message "missing service name")
     (shell-command (format "ng generate service %s" service)))))
 
+(transient-define-suffix aangit-menu--ng-interface-interface-command (&optional args)
+  :description "ng generate interface"
+  (interactive (list (transient-args transient-current-command)))
+  (let ((interface (read-string "interface name: ")))
+   (if (string-empty-p interface)
+      (message "missing interface name")
+    (shell-command (format "ng generate interface %s" interface)))))
+
 (transient-define-prefix aangit-menu--generate-interface-submenu ()
   ["Interfaces"
    ("n" "new" aangit-menu--ng-generate-interface-command)])
