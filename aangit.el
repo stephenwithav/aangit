@@ -52,6 +52,8 @@
    ("-i" "Inline Style" "--inline-style" :class transient-switch)
    ("-t" "Inline Template" "--inline-template" :class transient-switch)
    (aangit-menu--new-project-style)
+   ""
+   ("-S" "Skip Tests" "--skip-tests" :class transient-switch)
    ]
   ["Commands"
    ("n" "new" aangit-menu--ng-new)])
@@ -75,6 +77,8 @@
    ("-i" "Inline Style" "--inline-style" :class transient-switch)
    ("-t" "Inline Template" "--inline-template" :class transient-switch)
    (aangit-menu--new-component-style)
+   ""
+   ("-S" "Skip Tests" "--skip-tests" :class transient-switch)
    ]
   ["Commands"
    ("n" "new" aangit-menu--ng-generate-component-command)])
@@ -101,6 +105,8 @@
 
 (transient-define-prefix aangit-menu--generate-service-submenu ()
   ["service"
+   ("-S" "Skip Tests" "--skip-tests" :class transient-switch)
+   ""
    ("n" "new" aangit-menu--ng-generate-service-command)])
 
 (transient-define-prefix aangit-menu--generate-submenu ()
