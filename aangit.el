@@ -1,11 +1,12 @@
 ;;; aangit.el --- Quickly scaffold new Angular apps with Aangit
 
-;;; Commentary:
 ;; Author: Steven Edwards <steven@stephenwithav.io>
 ;; URL: https://github.com/stephenwithav/aangit
 ;; Keywords: angular tools
 ;; Version: 0.1
 ;; Package-Requires: ((Emacs "29.1") (transient "0.4"))
+;;
+;;; Commentary:
 ;;
 ;; Switching back and forth between the cli (e.g., for ng generate commands) and
 ;; Emacs is annoying.  This package hopes to alleviate that.
