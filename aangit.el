@@ -4,8 +4,9 @@
 ;; URL: https://github.com/stephenwithav/aangit
 ;; Keywords: angular tools
 ;; Version: 0.1
-;; Package-Requires: ((Emacs "29.1") (transient "0.4"))
-;;
+;; Package-Requires: ((emacs "29.1") (transient "0.4"))
+;; SPDX-License-Identifier: MIT
+;
 ;;; Commentary:
 ;;
 ;; Switching back and forth between the cli (e.g., for ng generate commands) and
