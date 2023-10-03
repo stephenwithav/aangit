@@ -31,6 +31,15 @@
         (delete-other-windows)
         (aangit-menu--generate-submenu)))))
 
+(transient-define-suffix aangit-menu--ng-add-known-schematic-command (&optional args)
+  "Quickly adds schematic to Angular app in cwd."
+  :description "ng add"
+  (interactive (list (transient-args transient-current-command)))
+  (if (seq-empty-p args)
+      (message "missing schematic name")
+    (shell-command (format "ng add --defaults --skip-confirmation %s" (string-join args " ")))))
+
+
 (transient-define-argument aangit-menu--new-project-style ()
   :description "Style"
   :class transient-option
@@ -132,9 +141,16 @@
    ;; ("w" "Web Worker" aangit-menu--unimplemented)
    ])
 
+(transient-define-prefix aangit-menu--add-external-library-or-schematic-submenu ()
+  ["Schematics"
+   ("l" "@angular-eslint/schematics" "@angular-eslint/schematics" :class transient-switch)]
+  ["Commands"
+   ("a" "add" aangit-menu--ng-add-known-schematic-command)])
+
 (transient-define-prefix aangit-menu ()
   [["ng"
     ("n" "new" aangit-menu--new-project)
+    ("a" "Add external library" aangit-menu--add-external-library-or-schematic-submenu)
     ("g" "generate" aangit-menu--generate-submenu)
     ]])
 
