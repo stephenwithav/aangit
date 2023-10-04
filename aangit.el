@@ -31,13 +31,17 @@
         (delete-other-windows)
         (aangit-menu--generate-submenu)))))
 
+(defun aangit--ng-add-single-schematic (pkg)
+  (shell-command (format "ng add --defaults --skip-confirmation %s" pkg)))
+
+
 (transient-define-suffix aangit-menu--ng-add-known-schematic-command (&optional args)
   "Quickly adds schematic to Angular app in cwd."
   :description "ng add"
   (interactive (list (transient-args transient-current-command)))
   (if (seq-empty-p args)
       (message "missing schematic name")
-    (shell-command (format "ng add --defaults --skip-confirmation %s" (string-join args " ")))))
+    (mapc #'aangit--ng-add-single-schematic args)))
 
 
 (transient-define-argument aangit-menu--new-project-style ()
@@ -143,7 +147,10 @@
 
 (transient-define-prefix aangit-menu--add-external-library-or-schematic-submenu ()
   ["Schematics"
-   ("l" "@angular-eslint/schematics" "@angular-eslint/schematics" :class transient-switch)]
+   ("l" "@angular-eslint/schematics" "@angular-eslint/schematics" :class transient-switch)
+   ("m" "@angular/material" "@angular/material" :class transient-switch)
+   ("c" "@angular/cdk/schematics" "@angular/cdk/schematics" :class transient-switch)
+   ("s" "@ngrx/store" "@ngrx/store" :class transient-switch)]
   ["Commands"
    ("a" "add" aangit-menu--ng-add-known-schematic-command)])
 
