@@ -118,9 +118,9 @@
    ("n" "new" aangit-menu--ng-generate-interface-command)])
 
 (transient-define-prefix aangit-menu--generate-service-submenu ()
-  ["service"
-   ("-S" "Skip Tests" "--skip-tests" :class transient-switch)
-   ""
+  ["Service"
+   ("-S" "Skip Tests" "--skip-tests" :class transient-switch)]
+  ["Commands"
    ("n" "new" aangit-menu--ng-generate-service-command)])
 
 (transient-define-prefix aangit-menu--generate-submenu ()
