@@ -119,7 +119,7 @@
   (let ((module (read-string "module name: ")))
    (if (string-empty-p module)
       (message "missing module name")
-    (shell-command (format "ng generate module %s" module)))))
+    (shell-command (format "ng generate module %s --defaults %s" module (string-join args " "))))))
 
 (transient-define-prefix aangit-menu--generate-interface-submenu ()
   ["Interfaces"
@@ -132,6 +132,11 @@
    ("n" "new" aangit-menu--ng-generate-service-command)])
 
 (transient-define-prefix aangit-menu--generate-module-submenu ()
+  ["Module"
+   ("-f" "Force" "--force" :class transient-switch)
+   ("-F" "Flat" "--flat" :class transient-switch)
+   ("-r" "Routing" "--routig" :class transient-switch)
+   ]
   ["Commands"
    ("n" "new" aangit-menu--ng-generate-module-command)])
 
