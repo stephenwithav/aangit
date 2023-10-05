@@ -141,7 +141,7 @@
   ["Module"
    ("-f" "Force" "--force" :class transient-switch)
    ("-F" "Flat" "--flat" :class transient-switch)
-   ("-r" "Routing" "--routig" :class transient-switch)
+   ("-r" "Routing" "--routing" :class transient-switch)
    ]
   ["Commands"
    ("n" "new" aangit-menu--ng-generate-module-command)])
