@@ -49,6 +49,7 @@
   :class transient-option
   :key "-y"
   :argument "--style="
+  :always-read t
   :choices '("css" "scss" "sass" "less"))
 
 (transient-define-argument aangit-menu--new-component-style ()
@@ -56,6 +57,7 @@
   :class transient-option
   :key "-y"
   :argument "--style="
+  :always-read t
   :choices '("css" "scss" "sass" "less" "none"))
 
 (transient-define-prefix aangit-menu--new-project ()
@@ -90,6 +92,7 @@
    ("-s" "Standalone" "--standalone" :class transient-switch)
    ("-i" "Inline Style" "--inline-style" :class transient-switch)
    ("-t" "Inline Template" "--inline-template" :class transient-switch)
+   ("-p" "Path" "--path=" :class transient-switch)
    (aangit-menu--new-component-style)
    ""
    ("-S" "Skip Tests" "--skip-tests" :class transient-switch)
