@@ -113,6 +113,14 @@
       (message "missing interface name")
     (shell-command (format "ng generate interface %s" interface)))))
 
+(transient-define-suffix aangit-menu--ng-generate-module-command (&optional args)
+  :description "ng generate module"
+  (interactive (list (transient-args transient-current-command)))
+  (let ((module (read-string "module name: ")))
+   (if (string-empty-p module)
+      (message "missing module name")
+    (shell-command (format "ng generate module %s --defaults %s" module (string-join args " "))))))
+
 (transient-define-prefix aangit-menu--generate-interface-submenu ()
   ["Interfaces"
    ("n" "new" aangit-menu--ng-generate-interface-command)])
@@ -122,6 +130,15 @@
    ("-S" "Skip Tests" "--skip-tests" :class transient-switch)]
   ["Commands"
    ("n" "new" aangit-menu--ng-generate-service-command)])
+
+(transient-define-prefix aangit-menu--generate-module-submenu ()
+  ["Module"
+   ("-f" "Force" "--force" :class transient-switch)
+   ("-F" "Flat" "--flat" :class transient-switch)
+   ("-r" "Routing" "--routig" :class transient-switch)
+   ]
+  ["Commands"
+   ("n" "new" aangit-menu--ng-generate-module-command)])
 
 (transient-define-prefix aangit-menu--generate-submenu ()
   :value '("--defaults")
@@ -137,7 +154,7 @@
    ;; ("I" "Interceptor" aangit-menu--unimplemented)
    ("i" "Interface" aangit-menu--generate-interface-submenu)
    ;; ("l" "Library" aangit-menu--unimplemented)
-   ;; ("m" "Module" aangit-menu--unimplemented)
+   ("m" "Module" aangit-menu--generate-module-submenu)
    ;; ("p" "Pipe" aangit-menu--unimplemented)
    ;; ("r" "Resolver" aangit-menu--unimplemented)
    ("s" "Service" aangit-menu--generate-service-submenu)
