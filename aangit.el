@@ -95,7 +95,7 @@
    ("-p" "Path" "--path=" :always-read t :class transient-option :reader transient-read-directory)
    ("-m" "Module" "--module=" :always-read t :class transient-option)
    ("-e" "Export" "--export" :class transient-switch)
-
+   ("-f" "Flat" "--flat" :class transient-switch)
    (aangit-menu--new-component-style)
    ""
    ("-S" "Skip Tests" "--skip-tests" :class transient-switch)
