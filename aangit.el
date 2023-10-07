@@ -92,7 +92,6 @@
    ("-s" "Standalone" "--standalone" :class transient-switch)
    ("-i" "Inline Style" "--inline-style" :class transient-switch)
    ("-t" "Inline Template" "--inline-template" :class transient-switch)
-   ("-p" "Path" "--path=" :always-read t :class transient-option :reader transient-read-directory)
    ("-m" "Module" "--module=" :always-read t :class transient-option)
    ("-e" "Export" "--export" :class transient-switch)
    ("-f" "Flat" "--flat" :class transient-switch)
