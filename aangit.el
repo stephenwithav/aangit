@@ -32,6 +32,7 @@
         (aangit-menu--generate-submenu)))))
 
 (defun aangit--ng-add-single-schematic (pkg)
+  "aangit--ng-add-single-schematic installsthe single schematic PKG."
   (shell-command (format "ng add --defaults --skip-confirmation %s" pkg)))
 
 
@@ -126,6 +127,14 @@
       (message "missing module name")
     (shell-command (format "ng generate module %s --defaults %s" module (string-join args " "))))))
 
+(transient-define-suffix aangit-menu--npm-install-command (&optional args)
+  :description "npm install package"
+  (interactive (list (transient-args transient-current-command)))
+  (let ((package (read-string "package name(s): ")))
+   (if (string-empty-p package)
+      (message "missing package name")
+    (shell-command (format "npm install %s %s" package (string-join args " "))))))
+
 (transient-define-prefix aangit-menu--generate-interface-submenu ()
   ["Interfaces"
    ("n" "new" aangit-menu--ng-generate-interface-command)])
@@ -182,6 +191,7 @@
   [["ng"
     ("n" "new" aangit-menu--new-project)
     ("a" "Add external library" aangit-menu--add-external-library-or-schematic-submenu)
+    ("p" "Add npm package" aangit-menu--npm-install-command)
     ("g" "generate" aangit-menu--generate-submenu)
     ]])
 
