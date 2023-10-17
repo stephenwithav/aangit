@@ -32,9 +32,14 @@
         (aangit-menu--generate-submenu)))))
 
 (defun aangit--ng-add-single-schematic (pkg)
-  "aangit--ng-add-single-schematic installsthe single schematic PKG."
+  "Install the single schematic PKG."
   (shell-command (format "ng add --defaults --skip-confirmation %s" pkg)))
 
+(defun aangit--transient-read-directory-with-no-slash (prompt _initial-input _history)
+  "Read a directory and remove trailing slash."
+  (string-trim-right
+   (file-local-name (expand-file-name (read-directory-name prompt)))
+   "/"))
 
 (transient-define-suffix aangit-menu--ng-add-known-schematic-command (&optional args)
   "Quickly adds schematic to Angular app in cwd."
@@ -84,16 +89,22 @@
   :description "ng generate component"
   (interactive (list (transient-args transient-current-command)))
   (let ((component (read-string "component name: ")))
-   (if (string-empty-p component)
-      (message "missing component name")
-    (shell-command (format "ng generate component %s --defaults %s" component (string-join args " "))))))
+    ;; (message "Fail: %s" default-directory)
+    ;; (message "Fail: %s" (string-join args " "))
+    ;; (message "Fail: %s" (s-replace default-directory "" (string-join args " ")))
+    (message (format "ng generate component %s --defaults %s" component
+                             (s-replace default-directory "" (string-join args " "))))
+    (if (string-empty-p component)
+        (message "missing component name")
+      (shell-command (format "ng generate component %s --defaults %s" component
+                             (s-replace default-directory "" (string-join args " ")))))))
 
 (transient-define-prefix aangit-menu--generate-component-submenu ()
   ["generate component"
    ("-s" "Standalone" "--standalone" :class transient-switch)
    ("-i" "Inline Style" "--inline-style" :class transient-switch)
    ("-t" "Inline Template" "--inline-template" :class transient-switch)
-   ("-p" "Path" "--path=" :always-read t :class transient-option :reader transient-read-directory)
+   ("-p" "Path" "--path=" :always-read t :class transient-option :reader aangit--transient-read-directory-with-no-slash)
    ("-m" "Module" "--module=" :always-read t :class transient-option)
    ("-e" "Export" "--export" :class transient-switch)
    ("-f" "Flat" "--flat" :class transient-switch)
