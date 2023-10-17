@@ -38,7 +38,7 @@
 (defun aangit--transient-read-directory-with-no-slash (prompt _initial-input _history)
   "Read a directory and remove trailing slash."
   (string-trim-right
-   (file-local-name (expand-file-name (read-directory-name prompt)))
+   (f-relative (read-directory-name prompt))
    "/"))
 
 (transient-define-suffix aangit-menu--ng-add-known-schematic-command (&optional args)
