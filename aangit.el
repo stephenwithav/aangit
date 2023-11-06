@@ -29,6 +29,7 @@
         (shell-command (format "ng new --defaults %s %s" dir cliargs))
         (dired dir)
         (delete-other-windows)
+        (shell-command "ng add --defaults --skip-confirmation @angular-eslint/schematics")
         (aangit-menu--generate-submenu)))))
 
 (defun aangit--ng-add-single-schematic (pkg)
@@ -89,11 +90,6 @@
   :description "ng generate component"
   (interactive (list (transient-args transient-current-command)))
   (let ((component (read-string "component name: ")))
-    ;; (message "Fail: %s" default-directory)
-    ;; (message "Fail: %s" (string-join args " "))
-    ;; (message "Fail: %s" (s-replace default-directory "" (string-join args " ")))
-    (message (format "ng generate component %s --defaults %s" component
-                             (s-replace default-directory "" (string-join args " "))))
     (if (string-empty-p component)
         (message "missing component name")
       (shell-command (format "ng generate component %s --defaults %s" component
