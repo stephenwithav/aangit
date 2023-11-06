@@ -4,9 +4,9 @@
 ;; URL: https://github.com/stephenwithav/aangit
 ;; Keywords: angular tools
 ;; Version: 0.1
-;; Package-Requires: ((emacs "29.1") (transient "0.4"))
+;; Package-Requires: ((emacs "29.1") (transient "0.4") (s "1.13"))
 ;; SPDX-License-Identifier: MIT
-;
+                                        ;
 ;;; Commentary:
 ;;
 ;; Switching back and forth between the cli (e.g., for ng generate commands) and
@@ -16,6 +16,7 @@
 
 (require 'transient)
 (require 'dired)
+(require 's)
 
 (transient-define-suffix aangit-menu--ng-new (&optional args)
   "Quickly scaffolds new Angular app in cwd."
@@ -115,33 +116,33 @@
   :description "ng generate service"
   (interactive (list (transient-args transient-current-command)))
   (let ((service (read-string "service name: ")))
-   (if (string-empty-p service)
-      (message "missing service name")
-    (shell-command (format "ng generate service %s" service)))))
+    (if (string-empty-p service)
+        (message "missing service name")
+      (shell-command (format "ng generate service %s" service)))))
 
 (transient-define-suffix aangit-menu--ng-generate-interface-command (&optional args)
   :description "ng generate interface"
   (interactive (list (transient-args transient-current-command)))
   (let ((interface (read-string "interface name: ")))
-   (if (string-empty-p interface)
-      (message "missing interface name")
-    (shell-command (format "ng generate interface %s" interface)))))
+    (if (string-empty-p interface)
+        (message "missing interface name")
+      (shell-command (format "ng generate interface %s" interface)))))
 
 (transient-define-suffix aangit-menu--ng-generate-module-command (&optional args)
   :description "ng generate module"
   (interactive (list (transient-args transient-current-command)))
   (let ((module (read-string "module name: ")))
-   (if (string-empty-p module)
-      (message "missing module name")
-    (shell-command (format "ng generate module %s --defaults %s" module (string-join args " "))))))
+    (if (string-empty-p module)
+        (message "missing module name")
+      (shell-command (format "ng generate module %s --defaults %s" module (string-join args " "))))))
 
 (transient-define-suffix aangit-menu--npm-install-command (&optional args)
   :description "npm install package"
   (interactive (list (transient-args transient-current-command)))
   (let ((package (read-string "package name(s): ")))
-   (if (string-empty-p package)
-      (message "missing package name")
-    (shell-command (format "npm install %s %s" package (string-join args " "))))))
+    (if (string-empty-p package)
+        (message "missing package name")
+      (shell-command (format "npm install %s %s" package (string-join args " "))))))
 
 (transient-define-prefix aangit-menu--generate-interface-submenu ()
   ["Interfaces"
