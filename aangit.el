@@ -4,7 +4,7 @@
 ;; URL: https://github.com/stephenwithav/aangit
 ;; Keywords: angular tools
 ;; Version: 0.1
-;; Package-Requires: ((emacs "29.1") (transient "0.4") (s "1.13"))
+;; Package-Requires: ((emacs "29.1"))
 ;; SPDX-License-Identifier: MIT
                                         ;
 ;;; Commentary:
