@@ -17,6 +17,7 @@
 (require 'transient)
 (require 'dired)
 (require 's)
+(require 'cl-lib)
 
 (transient-define-suffix aangit-menu--ng-new (&optional args)
   "Quickly scaffolds new Angular app in cwd."
@@ -87,14 +88,34 @@
   (interactive)
   (message "not yet implemented"))
 
+(transient-define-argument aangit-menu--new-component-crud-outputs ()
+  :description "CRUD options"
+  :class transient-option
+  :key "-C"
+  :argument "--CRUD="
+  :multi-value t
+  :class transient-option
+  :choices '("create" "read" "update" "delete"))
+
 (transient-define-suffix aangit-menu--ng-generate-component-command (&optional args)
   :description "ng generate component"
   (interactive (list (transient-args transient-current-command)))
   (let ((component (read-string "component name: ")))
     (if (string-empty-p component)
         (message "missing component name")
-      (shell-command (format "ng generate component %s --defaults %s" component
-                             (s-replace default-directory "" (string-join args " ")))))))
+      ;; for each crud option, repeat this.
+      ;; use a dolist block.  CreateComponent etc.
+      ;; Then create a routes file.
+      (let* ((sequences (cl-remove-if #'stringp args))
+             (args (remove (car sequences) args))
+             (crud-commands (cdr (car sequences))))
+        (if (and (listp sequences) sequences)
+            (dolist (crud-command crud-commands)
+              (shell-command (format "ng generate component %s%s --defaults --flat %s" (upcase-initials crud-command)
+                                     (upcase-initials component)
+                                     (s-replace default-directory "" (string-join args " ")))))
+          (shell-command (format "ng generate component %s --defaults %s" component
+                                 (s-replace default-directory "" (string-join args " ")))))))))
 
 (transient-define-prefix aangit-menu--generate-component-submenu ()
   ["generate component"
@@ -106,6 +127,7 @@
    ("-e" "Export" "--export" :class transient-switch)
    ("-f" "Flat" "--flat" :class transient-switch)
    (aangit-menu--new-component-style)
+   (aangit-menu--new-component-crud-outputs)
    ""
    ("-S" "Skip Tests" "--skip-tests" :class transient-switch)
    ]
